@@ -3,10 +3,13 @@
 namespace App\Controllers;
 
 use App\Models\BarangModel;
+use App\Models\CustomerModel;
+
 
 class BarangController extends BaseController
 {
     protected $modelcustomer;
+    protected $model;
     public function __construct()
     {
         $this->model = new BarangModel();
@@ -41,7 +44,7 @@ class BarangController extends BaseController
             ]
         ])) {
             $validasi = \Config\Services::validation();
-            return redirect()->to(base_url('/barang'))->withInput()->with('validasi',$validasi);
+            return redirect()->to(base_url('/barang'))->withInput()->with('validasi', $validasi);
         }
 
         $this->model->save([
@@ -80,18 +83,18 @@ class BarangController extends BaseController
             ]
         ])) {
             $validasi = \Config\Services::validation();
-            return redirect()->to(base_url('/barang'))->withInput()->with('validasi',$validasi);
+            return redirect()->to(base_url('/barang'))->withInput()->with('validasi', $validasi);
         }
 
-        $this->model->update($id,
-        [
-            'kode_barang' => $this->request->getVar('kode_barang'),
-            'nama_barang' => $this->request->getVar('nama_barang'),
-        ]);
+        $this->model->update(
+            $id,
+            [
+                'kode_barang' => $this->request->getVar('kode_barang'),
+                'nama_barang' => $this->request->getVar('nama_barang'),
+            ]
+        );
 
         session()->setFlashdata('pesan', 'Data berhasil diubah');
         return redirect()->to(base_url('/barang'));
-
     }
-
 }

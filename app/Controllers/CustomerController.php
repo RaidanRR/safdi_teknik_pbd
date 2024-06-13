@@ -55,7 +55,7 @@ class CustomerController extends BaseController
             ],
         ])) {
             $validasi = \Config\Services::validation();
-            return redirect()->to(base_url('/customer'))->withInput()->with('validasi',$validasi);
+            return redirect()->to(base_url('/customer'))->withInput()->with('validasi', $validasi);
         }
 
         $this->model->save([
@@ -68,7 +68,7 @@ class CustomerController extends BaseController
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
         return redirect()->to(base_url('/customer'));
     }
-    
+
     public function delete($id)
     {
         $this->model->delete($id);
@@ -78,7 +78,7 @@ class CustomerController extends BaseController
 
     public function update($id)
     {
-        
+
         if (!$this->validate([
             'id_customer' => [
                 'rules' => 'required',
@@ -110,19 +110,20 @@ class CustomerController extends BaseController
             ],
         ])) {
             $validasi = \Config\Services::validation();
-            return redirect()->to(base_url('/customer'))->withInput()->with('validasi',$validasi);
+            return redirect()->to(base_url('/customer'))->withInput()->with('validasi', $validasi);
         }
 
-        $this->model->update($id,
-        [
-            'id_customer' => $this->request->getVar('id_customer'),
-            'nama' => $this->request->getVar('nama'),
-            'alamat' => $this->request->getVar('alamat'),
-            'no_hp' => $this->request->getVar('no_hp')
-        ]);
+        $this->model->update(
+            $id,
+            [
+                'id_customer' => $this->request->getVar('id_customer'),
+                'nama' => $this->request->getVar('nama'),
+                'alamat' => $this->request->getVar('alamat'),
+                'no_hp' => $this->request->getVar('no_hp')
+            ]
+        );
 
         session()->setFlashdata('pesan', 'Data berhasil diubah');
         return redirect()->to(base_url('/customer'));
     }
-
 }
